@@ -3,7 +3,9 @@ import { addChatTransferButton } from "./flex-hooks/components/TaskCanvasHeader"
 import { handleChatTransferShowDirectory } from "./flex-hooks/actions/ShowDirectory";
 import { handleChatTransfer } from "./flex-hooks/actions/TransferTask";
 import { registerCustomChatTransferAction } from "./custom-actions/chatTransferTask";
-
+import { handleLeaveConversation } from './flex-hooks/actions/CompleteTask'; 
+import { registerLeaveConversationAction } from './custom-actions/leaveConversation';
+import { registerAfterChatTransferTaskEvent } from './events/afterChatTransferTask';
 const PLUGIN_NAME = "ConversationsTransferPlugin";
 
 export default class ConversationsTransferPlugin extends FlexPlugin {
@@ -21,6 +23,9 @@ export default class ConversationsTransferPlugin extends FlexPlugin {
     addChatTransferButton(flex);
     handleChatTransferShowDirectory(manager);
     handleChatTransfer();
+    handleLeaveConversation();
     registerCustomChatTransferAction();
+    registerLeaveConversationAction();
+    registerAfterChatTransferTaskEvent();
   }
 }

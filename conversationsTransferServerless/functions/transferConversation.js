@@ -67,7 +67,7 @@ exports.handler = TokenValidator(async function (context, event, callback) {
       .interaction(flexInteractionSid)
       .channels(flexInteractionChannelSid)
       .participants(flexInteractionParticipantSid)
-      .update({ status: "closed" });
+      .update({ status: "wrapup" });
 
     // invite a new agent to the conversation/interaction
     const routingParams = getRoutingParams(
