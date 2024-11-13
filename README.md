@@ -35,6 +35,19 @@ This plugin is intentionally a minimal implementation for transfers that is inte
 - After initiating a transfer the expectation is that this will complete quickly and the task will be moved to completed and there we don't try and add logic for disabling the transfer button. In a production environment tracking which tasks have had a transfer initiated and disabling the button or replacing with a spinner if this task is selected would ensure that even if the API request takes several seconds the agent experience is as expected.
 - Warm transfer or multiple agents in the same Conversation at the same time is not supported by this plugin. A POC of implementation for this is available [here](https://github.com/twilio-professional-services/flex-project-template/tree/main/plugin-flex-ts-template-v2/src/feature-library/conversation-transfer)
 
+# Modifications
+
+## Function Changes
+
+- Updated the chatTransferTask function to wrap up the participant.
+- Added a leaveConverstion function, which will be called when the agent tries to complete a task that was transferred. 
+
+## Plugin Changes
+- Added an event listener on the after ChatTransfrTask action to update the original task with a taskTransfer attribute.
+- Added a new LeaveConversation action, which sends a request to the leaveConversation function
+- I replaced the CompleteTask action. When the taskTransfer attribute is true, the LeaveConversation action will be invoked. If this attribute isn't present, the CompleteTask action will be invoked normally
+
+
 # Setup
 
 ## Create a new TaskRouter Workflow based on

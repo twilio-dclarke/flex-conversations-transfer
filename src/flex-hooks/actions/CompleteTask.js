@@ -1,16 +1,17 @@
 import { Actions, TaskHelper } from "@twilio/flex-ui";
 
 export function handleLeaveConversation() { 
+
+    //Replace the CompleteTask action
     Actions.replaceAction("CompleteTask", async (payload, original) => {
         const { task } = payload;
-        console.log("### 1", typeof task.attributes.taskTransfer)
+        //If the taskTransfer attribute is not true run the CompleteTask action 
         if (!task.attributes.taskTransfer) {
-            console.log("### 2", task)
             return original(payload);
         }
 
+        //If the taskTransfer attribute is true and this is a CBM task invoke the LeaveConversation action
         if (TaskHelper.isCBMTask(payload.task)) {
-            console.log("### 3", task)
             Actions.invokeAction("LeaveConversation", payload);
         }
     });
